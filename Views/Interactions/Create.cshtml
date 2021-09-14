@@ -1,0 +1,62 @@
+﻿@model Compendium.Models.Interaction
+
+@{
+    ViewData["Title"] = "Create Interaction";
+}
+
+<h1>Create Interaction</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Affected Characters</label>
+                <br />
+                <select class="selectddl" name="AffectedCharacter1">
+                    <option selected disabled="true">--- Select Character ---</option>
+                    @foreach(Character character in ViewBag.Characters)
+                    {
+                        <option value=@character.Id>@character.Name</option>
+                    }
+                </select>
+                <br />
+                <select class="selectddl" name="AffectedCharacter2">
+                    <option selected disabled="true">--- Select Character ---</option>
+                    @foreach(Character character in ViewBag.Characters)
+                    {
+                        <option value=@character.Id>@character.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Explanation" class="control-label"></label>
+                @Html.TextAreaFor(model => model.Explanation, new { @class = "form-control", @rows = 12 })
+                <span asp-validation-for="Explanation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Source</label>
+                <select class="selectddl" name="Source">
+                    <option selected disabled="true">--- Select Source ---</option>
+                    @foreach(Source source in ViewBag.Sources)
+                    {
+                        <option value=@source.Id>@source.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

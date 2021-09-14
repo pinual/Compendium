@@ -1,0 +1,78 @@
+﻿@model Compendium.Models.Interaction
+
+@{
+    ViewData["Title"] = "Edit Interaction";
+}
+
+<h1>Edit Interaction</h1>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Affected Characters</label>
+                <br />
+                <select class="selectddl" name="AffectedCharacter1" >
+                    @foreach(Character character in ViewBag.Characters)
+                    {
+                        if (character.Id == ViewBag.AffectedCharacter1)
+                        {
+                            <option selected="selected" value=@character.Id>@character.Name</option>
+                        }
+                        else
+                        {
+                            <option value=@character.Id>@character.Name</option>
+                        }
+                    }
+                </select>
+                <br />
+                <select class="selectddl" name="AffectedCharacter2">
+                    @foreach(Character character in ViewBag.Characters)
+                    {
+                        if (character.Id == ViewBag.AffectedCharacter2)
+                        {
+                            <option selected="selected" value=@character.Id>@character.Name</option>
+                        }
+                        else
+                        {
+                            <option value=@character.Id>@character.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Explanation" class="control-label"></label>
+                @Html.TextAreaFor(model => model.Explanation, new { @class = "form-control", @rows = 12 })
+                <span asp-validation-for="Explanation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Source</label>
+                <select class="selectddl" name="Source">
+                    @foreach(Source source in ViewBag.Sources)
+                    {
+                        if (source.Id == ViewBag.SelectedSource)
+                        {
+                            <option selected="selected" value=@source.Id>@source.Name</option>
+                        }
+                        else
+                        {
+                            <option value=@source.Id>@source.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
