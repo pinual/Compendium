@@ -6,9 +6,9 @@
 
 <h1>Interaction Details</h1>
 
+<hr />
+
 <div>
-    <h4>Interaction</h4>
-    <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             Affected Characters
@@ -31,7 +31,15 @@
         </dd>
     </dl>
     <div>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        <a asp-action="Index">Back to List</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) | <a asp-action="Index">Back to List</a>
+        </div>
+    }
+    else
+    {
+        <a asp-action="Index">Back to List</a>    
+    }
     </div>
 </div>

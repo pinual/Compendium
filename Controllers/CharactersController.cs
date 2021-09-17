@@ -1,5 +1,6 @@
 ﻿using Compendium.Models;
 using Compendium.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -38,6 +39,7 @@ namespace Compendium.Controllers
             return View(character);
         }
 
+        [Authorize]
         public async Task<ActionResult> Create()
         {
             return await Task.FromResult(View());
@@ -45,6 +47,7 @@ namespace Compendium.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Create(IFormCollection collection)
         {
             try
@@ -53,6 +56,7 @@ namespace Compendium.Controllers
                 {
                     Id = Guid.NewGuid(),
                     Ability = collection["Ability"],
+                    Details = collection["Details"],
                     Edition = (Character.GameEdition)Enum.Parse(typeof(Character.GameEdition), collection["Edition"]),
                     Name = collection["Name"],
                     Type = (Character.CharacterType)Enum.Parse(typeof(Character.CharacterType), collection["Type"]),
@@ -69,6 +73,7 @@ namespace Compendium.Controllers
             }
         }
 
+        [Authorize]
         public async Task<ActionResult> Edit(Guid id)
         {
             return View(await _charactersService.Get(id));
@@ -76,7 +81,8 @@ namespace Compendium.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Guid id, [Bind("Id,Ability,Edition,Name,Type")] Character character)
+        [Authorize]
+        public async Task<ActionResult> Edit(Guid id, [Bind("Id,Ability,Details,Edition,Name,Type")] Character character)
         {
             try
             {
@@ -93,6 +99,7 @@ namespace Compendium.Controllers
             }
         }
 
+        [Authorize]
         public async Task<ActionResult> Delete(Guid id)
         {
             return View(await _charactersService.Get(id));
@@ -100,6 +107,7 @@ namespace Compendium.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Delete(Guid id, IFormCollection collection)
         {
             try

@@ -15,5 +15,6 @@ namespace Compendium.Models
         public CharacterType Type { get; set; }
         public GameEdition Edition { get; set; }
         public string Ability { get; set; }
+        public string Details { get; set; }
     }
 }

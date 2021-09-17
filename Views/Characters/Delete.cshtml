@@ -1,14 +1,11 @@
 ﻿@model Compendium.Models.Character
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete " + @Model.Name;
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to delete @Model.Name?</h3>
 <div>
-    <h4>Character</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">

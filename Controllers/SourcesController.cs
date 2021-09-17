@@ -1,5 +1,6 @@
 ﻿using Compendium.Models;
 using Compendium.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,7 +15,6 @@ namespace Compendium.Controllers
         public SourcesController(SourcesService sourcesService)
         {
             _sourcesService = sourcesService;
-
         }
 
         public async Task<ActionResult> Index()
@@ -27,6 +27,7 @@ namespace Compendium.Controllers
             return View(await _sourcesService.Get(id));
         }
 
+        [Authorize]
         public async Task<ActionResult> Create()
         {
             return await Task.FromResult(View());
@@ -34,6 +35,7 @@ namespace Compendium.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Create(IFormCollection collection)
         {
             try
@@ -54,6 +56,7 @@ namespace Compendium.Controllers
             }
         }
 
+        [Authorize]
         public async Task<ActionResult> Edit(Guid id)
         {
             return View(await _sourcesService.Get(id));
@@ -61,6 +64,7 @@ namespace Compendium.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Edit(Guid id, [Bind("Id,Name,Description,Link")] Source source)
         {
             try
@@ -74,6 +78,7 @@ namespace Compendium.Controllers
             }
         }
 
+        [Authorize]
         public async Task<ActionResult> Delete(Guid id)
         {
             return View(await _sourcesService.Get(id));
@@ -81,6 +86,7 @@ namespace Compendium.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Delete(Guid id, IFormCollection collection)
         {
             try

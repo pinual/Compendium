@@ -1,5 +1,6 @@
 ﻿using Compendium.Models;
 using Compendium.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -42,6 +43,7 @@ namespace Compendium.Controllers
             return View(interaction);
         }
 
+        [Authorize]
         public async Task<ActionResult> Create()
         {
             ViewBag.Characters = (await _charactersService.Get()).OrderBy(x => x.Name);
@@ -51,6 +53,7 @@ namespace Compendium.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Create(IFormCollection collection)
         {
             try
@@ -72,6 +75,7 @@ namespace Compendium.Controllers
             }
         }
 
+        [Authorize]
         public async Task<ActionResult> Edit(Guid id)
         {
             var interaction = await _interactionsService.Get(id);
@@ -85,6 +89,7 @@ namespace Compendium.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Edit(Guid id, IFormCollection collection)
         {
             try
@@ -104,6 +109,7 @@ namespace Compendium.Controllers
             }
         }
 
+        [Authorize]
         public async Task<ActionResult> Delete(Guid id)
         {
             var interaction = await _interactionsService.Get(id);
@@ -115,6 +121,7 @@ namespace Compendium.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Delete(Guid id, IFormCollection collection)
         {
             try
