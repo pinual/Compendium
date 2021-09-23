@@ -21,7 +21,7 @@
                 <label asp-for="Type" class="control-label"></label>
                 @Html.DropDownList("Type",
                     new SelectList(Enum.GetValues(typeof(Character.CharacterType))),
-                    "Select Type",
+                    "Game Type",
                     new { @class = "form-control" })
                 <span asp-validation-for="Type" class="dropdown-menu"></span>
             </div>

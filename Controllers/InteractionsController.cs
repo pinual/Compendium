@@ -64,7 +64,7 @@ namespace Compendium.Controllers
                     Explanation = collection["Explanation"],
                     AffectedCharacter1 = Guid.Parse(collection["AffectedCharacter1"]),
                     AffectedCharacter2 = Guid.Parse(collection["AffectedCharacter2"]),
-                    Source = (await _sourcesService.Get(collection["Source"])).Id
+                    Source = (await _sourcesService.Get(Guid.Parse(collection["Source"]))).Id
                 });
 
                 return await Task.FromResult(RedirectToAction(nameof(Index)));

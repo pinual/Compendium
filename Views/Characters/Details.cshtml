@@ -38,7 +38,7 @@
             @Html.DisplayNameFor(model => model.Details)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Details)
+            @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 12, @readonly = "readonly" })
         </dd>
     </dl>
 </div>
