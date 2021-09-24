@@ -63,16 +63,26 @@
     <div class = "col-sm-12"><h3>Known Interactions</h3></div>
     @foreach(Interaction interaction in @ViewBag.Interactions)
     {
+        string affected;
         if (Model.Id == interaction.AffectedCharacter1)
         {
-            var affected = ((Dictionary<Guid, string>)ViewData["CharacterGuidToName"])[interaction.AffectedCharacter2];
-            <h4>@affected</h4>
+            affected = ((Dictionary<Guid, string>)ViewData["CharacterGuidToName"])[interaction.AffectedCharacter2];
         }
         else
         {
-            var affected = ((Dictionary<Guid, string>)ViewData["CharacterGuidToName"])[interaction.AffectedCharacter1];
-            <h4>@affected</h4>
+            affected = ((Dictionary<Guid, string>)ViewData["CharacterGuidToName"])[interaction.AffectedCharacter1];
         }
+        <dl class="row">
+            <dt class = "col-sm-1">
+                @affected
+            </dt>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <dt class = "col-sm-1">
+                    @Html.ActionLink("Edit", "Edit", "Interactions", new { id = interaction.Id })
+                </dt>
+            }
+        </dl>
         <div class = "col-sm-13">
             @Html.TextArea("Explanation", interaction.Explanation, new { @class = "form-control", @rows = 8, @readonly = "readonly" })
         </div>
