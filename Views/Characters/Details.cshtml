@@ -73,6 +73,8 @@
             var affected = ((Dictionary<Guid, string>)ViewData["CharacterGuidToName"])[interaction.AffectedCharacter1];
             <h4>@affected</h4>
         }
-        <div class = "col-sm-10">@interaction.Explanation</div>
+        <div class = "col-sm-13">
+            @Html.TextArea("Explanation", interaction.Explanation, new { @class = "form-control", @rows = 8, @readonly = "readonly" })
+        </div>
     }
 }
